@@ -16,3 +16,5 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Repeated acceptance loop
         run: python scripts/loop_test.py 1000
+      - name: Simulated 1,000-cycle HIL fault sequence
+        run: python scripts/hil_runner.py --mode sim --cycles 1000 --artifacts artifacts/hil

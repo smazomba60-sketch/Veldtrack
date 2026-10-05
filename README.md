@@ -16,9 +16,12 @@ A livestock tracking device project with a **hardware-independent telemetry core
 ```bash
 python -m unittest discover -s tests -v
 python scripts/loop_test.py 1000
+python scripts/hil_runner.py --mode sim --cycles 1000
 ```
 
 The loop exercises nominal telemetry, payload/schema invariants, stale-GPS rejection, and recovery after two transport failures. Any failure exits non-zero and prints a JSON failure record, making it suitable for GitHub Actions or a hardware test runner.
+
+The HIL runner rotates brownout, hard-cut, transient-radio-loss, and persistent-radio-failure scenarios. Simulation writes `manifest.json`, `dut-events.ndjson`, `radio-uplinks.ndjson`, and `verdict.json` under `artifacts/hil/<run-id>/`. For real hardware, use `--mode external --rig-command <helper>`; the helper receives one JSON action on stdin and must return one JSON result, as specified in [`scripts/hil_runner.py`](scripts/hil_runner.py).
 
 ## Hardware-in-the-loop testing
 

@@ -146,6 +146,26 @@ TEST STOP
 
 The exact transport (JSON lines, CBOR, or another framing) may change with the MCU, but event names and required semantics must remain stable.
 
+### Reference runner
+
+The repository includes [`scripts/hil_runner.py`](../scripts/hil_runner.py), which runs the 1,000-cycle rotation used by the acceptance gate:
+
+```bash
+python scripts/hil_runner.py --mode sim --cycles 1000
+```
+
+The simulation mode is deterministic and safe for CI. It rotates `brownout`, `hard_cut`, `transient_radio_loss`, and `persistent_radio_failure`, then validates boot/recovery events, GPS validity, accepted uplink count, coordinates, and sequence continuity. It writes `manifest.json`, `dut-events.ndjson`, `radio-uplinks.ndjson`, and `verdict.json` under `artifacts/hil/<run-id>/`.
+
+For real hardware, the same runner can call a vendor-specific helper without embedding unsafe assumptions about a power controller or radio backend:
+
+```bash
+python scripts/hil_runner.py --mode external --cycles 1000 \
+  --artifacts artifacts/hil \
+  --rig-command ./hardware/veldtrack_rig_helper
+```
+
+The helper is invoked once per action with one JSON object on stdin and must return one JSON object on stdout. Required actions are `preflight`, `power_on`, `power_off`, `brownout`, `hard_cut`, `configure`, and `collect`. Every response must include `{"ok": true}` on success; `collect` must also return `events` and `uplinks`. Non-zero exit, timeout, malformed JSON, `ok:false`, missing safety events, invalid coordinates, wrong sequence, or unexpected ACKs during persistent failure are hard failures. The runner always attempts `power_off` in its cleanup path.
+
 ## 6. Test scenarios and acceptance criteria
 
 Every case produces: `run.json`, raw DUT log, GNSS source/log, radio-oracle log, power log if used, firmware/build identifiers, wiring/photo reference, and a PASS/FAIL summary.
