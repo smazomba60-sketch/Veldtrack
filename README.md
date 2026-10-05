@@ -24,6 +24,8 @@ The loop exercises nominal telemetry, payload/schema invariants, stale-GPS rejec
 
 The [HIL test harness specification](docs/HIL_TEST_HARNESS.md) defines the real-GNSS and real-radio fixtures, DUT observability contract, test matrix, evidence bundle, safety rules, and release gates. It complements—not replaces—the deterministic software loop above.
 
+The [HIL power and fault-injection fixture design](docs/HIL_POWER_FAULT_FIXTURE.md) includes the circuit netlist, rendered schematic, bring-up procedure, fault recipes, and BOM. The machine-readable BOM is available at [HIL_POWER_FAULT_FIXTURE_BOM.csv](docs/HIL_POWER_FAULT_FIXTURE_BOM.csv).
+
 ## Hardware integration boundary
 
 A board-specific adapter should feed these readings into `VeldtrackDevice`:

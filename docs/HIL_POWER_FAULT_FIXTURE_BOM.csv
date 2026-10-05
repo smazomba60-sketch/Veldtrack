@@ -1,0 +1,36 @@
+Item,Qty,Category,Suggested part or minimum specification,Key rating or note,Required
+J1,1,Connector,2-pin locking screw terminal 5.08 mm,>=30 VDC >=5 A keyed polarity,Yes
+F1,1,Protection,MF-R200 or equivalent PTC,2 A hold/trip family verify ambient behavior,Yes
+Q1,1,Protection,P-channel MOSFET DMP3010UFZ or equivalent,>=30 V low RDS(on) at available gate drive >=5 A,Yes
+D1,1,Protection,SMBJ24A unidirectional TVS,24 V standoff input maximum <=24 V,Yes
+R1/R2,2,Passive,100 kOhm 1 percent resistors,Q1 gate bias,Yes
+C1,1,Capacitor,100 uF 35 V low ESR electrolytic,Buck input bulk,Yes
+C2,1,Capacitor,100 nF 50 V X7R,Input bypass,Yes
+U1,1,Power,Adjustable buck MP1584 or LM2596 class,Input >=28 V output 5 V >=3 A advertised verify thermal/current limit,Yes
+R3/R4,1 set,Passive,U1-specific feedback or trim parts,TBD by selected U1 module,Yes
+D2,1,Protection,5 V TVS selected for actual rail,Standoff above maximum normal rail below DUT damage limit,Yes
+C3,1,Capacitor,470 uF 10 V low ESR electrolytic,Pre-cutoff bulk,Yes
+C4/C6,2,Capacitor,100 nF 10 V X7R,Rail bypass,Yes
+Q2,1,Switch,IRLML6402 or equivalent P-channel MOSFET,>=20 V low RDS(on) at -4.5 V >=3 A pulsed,Yes
+Q3,1,Switch,2N7002 or BSS138,3.3 V-compatible gate pull-down driver,Yes
+R5/R7/R9,3,Passive,100 kOhm 1 percent resistors,Safe-default pull-ups/pull-downs,Yes
+R6,1,Passive,10 kOhm 1 percent resistor,Q3 gate series resistor,Yes
+D3,1,Protection,10 V zener BZT52C10 or equivalent,Q2 gate-source clamp,Yes
+RSHUNT,1,Measurement,0.050 Ohm 2 W 1 percent four-terminal preferred,Kelvin current sense,Yes
+C5,1,Capacitor,100 uF 10 V low ESR electrolytic,DUT-side bulk,Yes
+J2,1,Connector,2-pin locking DUT connector,>=5 VDC >=5 A keyed and strain relieved,Yes
+Q4,1,Switch,IRLZ44N or equivalent logic-level N-MOSFET,>=30 V >=10 A low RDS(on) at 4.5 V heatsink provision,Yes
+RLOAD,1,Load,4.7 Ohm 10 W wirewound resistor,Pulse-rated starts at 10 ms load pulses,Yes
+R8,1,Passive,100 Ohm 1 percent resistor,Q4 gate resistor,Yes
+D4,1,Protection,1N5819 or equivalent,Populate only if inductive load option is used,Optional
+J3,1,Connector,5-pin 2.54 mm control header,KILL_EN LOAD_EN/PWM GND VMON ISENSE,Yes
+J4,1,Connector,7-pin 2.54 mm measurement header,Input and DUT voltage plus shunt sense points,Yes
+TP1-TP7,7,Test point,Shrouded labeled test points,Prevent accidental shorts,Yes
+SW1,1,Safety,Latching emergency-stop or kill switch,Series with KILL_EN or control power,Recommended
+LED1,1,Indicator,Green LED plus 1 kOhm resistor,V_DUT present,Recommended
+LED2,1,Indicator,Amber LED plus 1 kOhm resistor,LOAD_EN indication,Recommended
+PCB/fixture,1,Mechanical,FR-4 PCB or insulated DIN-rail enclosure,Guarded terminals and suitable clearances,Yes
+F2,1,Protection,2 A inline fuse or resettable fuse,DUT branch secondary protection,Recommended
+Host controller,1,Control,Isolated USB-GPIO or small 3.3 V MCU,Outputs default low on boot/disconnect,Recommended
+Meter,1,Instrumentation,Calibrated DMM or USB power meter,Voltage/current verification,Yes
+Scope,1,Instrumentation,2-channel oscilloscope differential probe preferred,Brownout and reset timing evidence,Recommended
