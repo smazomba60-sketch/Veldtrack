@@ -20,6 +20,10 @@ python scripts/loop_test.py 1000
 
 The loop exercises nominal telemetry, payload/schema invariants, stale-GPS rejection, and recovery after two transport failures. Any failure exits non-zero and prints a JSON failure record, making it suitable for GitHub Actions or a hardware test runner.
 
+## Hardware-in-the-loop testing
+
+The [HIL test harness specification](docs/HIL_TEST_HARNESS.md) defines the real-GNSS and real-radio fixtures, DUT observability contract, test matrix, evidence bundle, safety rules, and release gates. It complements—not replaces—the deterministic software loop above.
+
 ## Hardware integration boundary
 
 A board-specific adapter should feed these readings into `VeldtrackDevice`:
